@@ -59,5 +59,35 @@
         "steep.mp4",
         "joel",
         "center"
+    ],
+    "helldivers2": [
+        "https://www.youtube.com/watch?v=sGn24U-oCDE",
+        "helldivers2.mp4",
+        "",
+        "center"
+    ],
+    "destiny2": [
+        "https://www.youtube.com/watch?v=v3gPWeuvoZ8",
+        "destiny2.mp4",
+        "",
+        "center"
+    ],
+    "rdr2": [
+        "https://www.youtube.com/watch?v=t3l0D6zF23c",
+        "rdr2.mp4",
+        "",
+        "center"
+    ],
+    "paris": [
+        "https://www.youtube.com/watch?v=8mf5prrubCM",
+        "paris.mp4",
+        "J Utah",
+        "center"
+    ],
+    "newyork": [
+        "https://www.youtube.com/watch?v=LQLJu-EpkeE",
+        "newyork.mp4",
+        "J Utah",
+        "center"
     ]
 }

@@ -51,10 +51,13 @@ def get_screenshots_of_reddit_posts(reddit_object: dict, screenshot_num: int):
             cookie_file = open("./video_creation/data/cookie-dark-mode.json", encoding="utf-8")
         else:
             # Switch to dark theme
+            bgcolor = (0, 0, 0, 0)
+            txtcolor = (255, 255, 255)
+            transparent = True
             cookie_file = open("./video_creation/data/cookie-dark-mode.json", encoding="utf-8")
-            bgcolor = (33, 33, 36, 255)
-            txtcolor = (240, 240, 240)
-            transparent = False
+            # bgcolor = (33, 33, 36, 255)
+            # txtcolor = (240, 240, 240)
+            # transparent = False
     else:
         cookie_file = open("./video_creation/data/cookie-light-mode.json", encoding="utf-8")
         bgcolor = (255, 255, 255, 255)
@@ -75,7 +78,7 @@ def get_screenshots_of_reddit_posts(reddit_object: dict, screenshot_num: int):
         print_substep("Launching Headless Browser...")
 
         browser = p.chromium.launch(
-            headless=True
+            headless=False
         )  # headless=False will show the browser for debugging purposes
         # Device scale factor (or dsf for short) allows us to increase the resolution of the screenshots
         # When the dsf is 1, the width of the screenshot is 600 pixels
@@ -100,9 +103,15 @@ def get_screenshots_of_reddit_posts(reddit_object: dict, screenshot_num: int):
         page.set_viewport_size(ViewportSize(width=1920, height=1080))
         page.wait_for_load_state()
 
-        page.locator('[name="username"]').fill(settings.config["reddit"]["creds"]["username"])
-        page.locator('[name="password"]').fill(settings.config["reddit"]["creds"]["password"])
-        page.locator("button[class$='m-full-width']").click()
+        page.locator(f'input[name="username"]').fill(settings.config["reddit"]["creds"]["username"])
+        username = settings.config["reddit"]["creds"]["username"]
+        print_substep(f"input username {username}" )
+
+        page.locator(f'input[name="password"]').fill(settings.config["reddit"]["creds"]["password"])
+        password = settings.config["reddit"]["creds"]["password"]
+        print_substep(f"input password {password}" )
+
+        page.get_by_role("button", name="Log In").click()
         page.wait_for_timeout(5000)
 
         login_error_div = page.locator(".AnimatedForm__errorMessage").first
@@ -220,8 +229,7 @@ def get_screenshots_of_reddit_posts(reddit_object: dict, screenshot_num: int):
                 if page.locator('[data-testid="content-gate"]').is_visible():
                     page.locator('[data-testid="content-gate"] button').click()
 
-                page.goto(f'https://reddit.com{comment["comment_url"]}', timeout=0)
-
+                page.goto(f"https://new.reddit.com/{comment['comment_url']}")
                 # translate code
 
                 if settings.config["reddit"]["thread"]["post_lang"]:
